@@ -24,7 +24,10 @@ done
 
 SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 STACK_HELPER="${SCRIPT_DIR}/musa_python_stack.py"
-PIP_INSTALL=(python3 -m pip install --no-cache-dir)
+# Keep installed packages isolated in PYTHONUSERBASE, but let pip reuse its
+# content-addressed wheel cache across jobs. Disabling the cache made every
+# MUSA lane cold-download hundreds of megabytes and exceed the install timeout.
+PIP_INSTALL=(python3 -m pip install)
 readonly MUSA_TRITON_VERSION="3.2.0"
 # Current MUSA CI uses the CPython 3.10 x86_64 wheel. A Python upgrade must
 # update this digest together with the pinned artifact.
