@@ -50,7 +50,7 @@ ONE_GPU_MUSA_CASES: list[DiffusionTestCase] = [
             # one-second request resolves to 24. Reuse the first real request
             # shape for an unmeasured warmup so MUSA JIT/autotune work stays
             # outside the denoising performance metrics.
-            extra_args=["--warmup-mode", "request"],
+            extras=["--warmup-mode", "request"],
         ),
         DiffusionSamplingParams(
             prompt=T2V_PROMPT,
